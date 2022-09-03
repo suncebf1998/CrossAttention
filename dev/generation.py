@@ -87,6 +87,7 @@ class GenerationModel_Linear(nn.Module):
 
 if __name__ == "__main__":
     from tqdm import tqdm
+    from tools import get_parameter_number
     testx = torch.randn(512, 128).cuda()
     testy = (testx + testx ** 2 + 3.14).mean(1)
     def metric(outputs:list):
@@ -95,6 +96,7 @@ if __name__ == "__main__":
             loss += output.mean((1,2))
         return loss / len(outputs)
     model = GenerationModel_Linear().cuda()
+    get_parameter_number(model, True)
 
     # test whether can run the interfence
     outputs = model(testx)
